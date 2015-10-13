@@ -1,0 +1,26 @@
+{
+  "product_files": [
+    {
+      "id": 2646,
+      "aws_object_key": "product_files/London-Services/Pivotal-Redis/p-redis-1.4.8.0.pivotal",
+      "file_version": "1.4.8",
+      "name": "Redis for PCF",
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/product_files/2646"
+        },
+        "download": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/product_files/2646/download"
+        },
+        "signature_file_download": {
+          "href": null
+        }
+      }
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/product_files"
+    }
+  }
+}

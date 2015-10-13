@@ -1,0 +1,350 @@
+{
+  "releases": [
+    {
+      "id": 491,
+      "version": "1.4.8",
+      "release_type": "Minor Release",
+      "release_date": "2015-09-02",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Updated stemcell to 3062",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/491/user_groups"
+        }
+      }
+    },
+    {
+      "id": 326,
+      "version": "1.4.7",
+      "release_type": "Minor Release",
+      "release_date": "2015-07-29",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Updated stemcell to 3026 to resolve CVE-2015-3290",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/326"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/326/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/326/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/326/user_groups"
+        }
+      }
+    },
+    {
+      "id": 284,
+      "version": "1.4.6",
+      "release_type": "Minor Release",
+      "release_date": "2015-07-06",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Support for Elastic Runtime 1.5.x and OpsManager 1.5.x, updated stemcell to 2989 & support for HTTPS only traffic",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/284"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/284/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/284/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/284/user_groups"
+        }
+      }
+    },
+    {
+      "id": 262,
+      "version": "1.4.5",
+      "release_type": "Minor Release",
+      "release_date": "2015-06-15",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Includes Redis 2.8.21 to resolve Lua exploit, migration path enabled from Redis 1.3.2",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/262"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/262/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/262/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/262/user_groups"
+        }
+      }
+    },
+    {
+      "id": 242,
+      "version": "1.4.4",
+      "release_type": "Minor Release",
+      "release_date": "2015-05-07",
+      "availability": "All Users",
+      "description": "Support for OpsManager 1.4.0",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "end_of_support_date": "2016-11-30",
+      "eccn": "5D992",
+      "license_exception": "NLR",
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/242"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/242/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/242/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/242/user_groups"
+        }
+      }
+    },
+    {
+      "id": 196,
+      "version": "1.4.3",
+      "release_type": "Minor Release",
+      "release_date": "2015-03-23",
+      "release_notes_url": "http://docs.pivotal.io/redis/",
+      "availability": "All Users",
+      "description": "This security patch resolves several OpenSSL vulnerabilities. See further details at https://pivotal.io/security/usn-2537-1",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/196"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/196/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/196/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/196/user_groups"
+        }
+      }
+    },
+    {
+      "id": 174,
+      "version": "1.4.2",
+      "release_type": "Minor Release",
+      "release_date": "2015-02-05",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Includes Stemcell 2824",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/174"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/174/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/174/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/174/user_groups"
+        }
+      }
+    },
+    {
+      "id": 159,
+      "version": "1.4.1",
+      "release_type": "Minor Release",
+      "release_date": "2015-01-16",
+      "release_notes_url": "http://docs.pivotal.io/redis/release.html",
+      "availability": "All Users",
+      "description": "Includes updated version of Redis (2.8.19) and other components. ",
+      "eula": {
+        "id": 38,
+        "slug": "pivotal_software_eula",
+        "name": "Pivotal Software EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/38"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/159"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/159/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/159/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/159/user_groups"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "version": "1.4.0",
+      "release_type": "Major Release",
+      "release_date": "2014-12-15",
+      "availability": "All Users",
+      "description": "Provides a new plan of dedicated VMs",
+      "eula": {
+        "id": 42,
+        "slug": "free_non-production_eula",
+        "name": "Pivotal Free Non-Production EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/42"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/13"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/13/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/13/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/13/user_groups"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "version": "1.3.2",
+      "release_type": "Major Release",
+      "release_date": "2014-10-06",
+      "release_notes_url": "http://docs.pivotal.io/p1-services/Redis.html",
+      "availability": "All Users",
+      "description": "Public release of the Redis for PCF tile for development & testing workloads",
+      "eula": {
+        "id": 42,
+        "slug": "free_non-production_eula",
+        "name": "Pivotal Free Non-Production EULA",
+        "_links": {
+          "self": {
+            "href": "https://network.pivotal.io/api/v2/eulas/42"
+          }
+        }
+      },
+      "controlled": false,
+      "_links": {
+        "self": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/12"
+        },
+        "product_files": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/12/product_files"
+        },
+        "file_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/12/file_groups"
+        },
+        "user_groups": {
+          "href": "https://network.pivotal.io/api/v2/products/p-redis/releases/12/user_groups"
+        }
+      }
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://network.pivotal.io/api/v2/products/p-redis/releases"
+    }
+  }
+}
