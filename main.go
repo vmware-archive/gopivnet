@@ -14,7 +14,11 @@ import (
 
 var product = flag.String("product", "", "product to download")
 
-var version = flag.String("version", "", "version of the product")
+var version = flag.String("version", "", "version of the product. If missing download the latest version")
+
+var token = flag.String("token", "", "pivnet token")
+
+var file = flag.String("file", "", "filename where to save the pivotal product")
 
 func main() {
 	flag.Parse()
@@ -22,7 +26,12 @@ func main() {
 	if *product == "" {
 		log.Fatal("Need a product name")
 	}
-	pr := resource.NewRequester("https://network.pivotal.io", "yonFmSKVP4cFcqW5Khg6")
+
+	if *token == "" {
+		log.Fatal("Need a pivnet token")
+	}
+
+	pr := resource.NewRequester("https://network.pivotal.io", *token)
 
 	prod, err := pr.GetProduct(*product)
 	if err != nil {
@@ -46,15 +55,16 @@ func main() {
 	}
 
 	url, _ := pr.GetProductDownloadUrl(pivotalProduct)
+	fileName := *file
+	if fileName == "" {
+		fileName = pivotalProduct.Name()
+	}
 
-	fmt.Println(url)
-	download(url)
+	download(url, pivotalProduct.Name())
 }
 
-func download(url string) {
-	outputFile := *product + ".pivotal"
-
-	out, err := os.Create(outputFile)
+func download(url, fileName string) {
+	out, err := os.Create(fileName)
 	defer out.Close()
 
 	resp, err := http.Get(url)

@@ -1,5 +1,7 @@
 package resource
 
+import "strings"
+
 type Product struct {
 	Releases []Release `json:"releases"`
 }
@@ -37,6 +39,11 @@ type ProductFile struct {
 	AwsObjectKey string `json:"aws_object_key"`
 	FileVersion  string `json:"file_version"`
 	Links        Links  `json:"_links"`
+}
+
+func (p *ProductFile) Name() string {
+	tokens := strings.Split(p.AwsObjectKey, "/")
+	return tokens[len(tokens)-1]
 }
 
 type EulaMessage struct {
