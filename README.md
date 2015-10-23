@@ -22,7 +22,7 @@ Example: `gopivnet -product p-redis -token <token> -version "1.4.7" -file p-redi
 
 https://network.pivotal.io/docs/api
 
-Relevane section: 
+Relevant section: 
 > Some products and releases may require authentication to access or modify. Your Pivotal Network API Token can be found on your [Edit Profile](https://network.pivotal.io/users/dashboard/edit-profile) page. This API token should be used in the Authorization header of the request. The Authentication API can be used to test that you are using your authorization token correctly.
 
 # Library
