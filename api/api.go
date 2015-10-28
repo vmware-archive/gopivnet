@@ -44,7 +44,7 @@ func (p *PivnetApi) GetLatestProductFile(productName string, fileType string) (*
 
 	pivotalProduct := getPivotalProduct(productFiles, fileType)
 	if pivotalProduct == nil {
-		return nil, errors.New("Unable to fund a pivotal product")
+		return nil, errors.New("Unable to find a pivotal product")
 	}
 
 	return pivotalProduct, nil
@@ -86,7 +86,7 @@ func (p *PivnetApi) GetProductFileForVersion(productName, version string, fileTy
 
 	pivotalProduct := getPivotalProduct(productFiles, fileType)
 	if pivotalProduct == nil {
-		return nil, errors.New("Unable to fund a pivotal product")
+		return nil, errors.New("Unable to find a pivotal product")
 	}
 
 	return pivotalProduct, nil
