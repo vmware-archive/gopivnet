@@ -45,6 +45,10 @@ var _ = Describe("Api", func() {
 					Id:           22,
 					AwsObjectKey: "product.pivotal",
 				},
+                resource.ProductFile{
+                    Id:           23,
+                    AwsObjectKey: "cool.zip",
+                },
 			},
 		}
 
@@ -60,14 +64,14 @@ var _ = Describe("Api", func() {
 
 	Context("GetLatestProductFile", func() {
 		It("returns an error if there is no product name", func() {
-			res, err := api.GetLatestProductFile("")
+			res, err := api.GetLatestProductFile("", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("fetches the right product", func() {
-			api.GetLatestProductFile("myprod")
+			api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(requester.GetProductCallCount()).To(Equal(1))
 			Expect(requester.GetProductArgsForCall(0)).To(Equal("myprod"))
@@ -75,14 +79,14 @@ var _ = Describe("Api", func() {
 
 		It("returns an error if fetching a product fails", func() {
 			requester.GetProductReturns(nil, errors.New("err"))
-			res, err := api.GetLatestProductFile("myprod")
+			res, err := api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("fetches the product files from the returned product", func() {
-			api.GetLatestProductFile("myprod")
+			api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(requester.GetProductFilesCallCount()).To(Equal(1))
 			Expect(requester.GetProductFilesArgsForCall(0)).To(Equal(prod.Releases[0]))
@@ -90,16 +94,23 @@ var _ = Describe("Api", func() {
 
 		It("returns an error if GetProductFiles fails", func() {
 			requester.GetProductFilesReturns(nil, errors.New("err"))
-			res, err := api.GetLatestProductFile("myprod")
+			res, err := api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("returns the latest product file", func() {
-			res, err := api.GetLatestProductFile("myprod")
+			res, err := api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(res).To(Equal(&productFiles.Files[1]))
+			Expect(err).ToNot(HaveOccurred())
+		})
+
+        It("returns the latest product file with an extension", func() {
+			res, err := api.GetLatestProductFile("myprod", "zip")
+
+			Expect(res).To(Equal(&productFiles.Files[2]))
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -107,7 +118,7 @@ var _ = Describe("Api", func() {
 			productFiles.Files = productFiles.Files[:1]
 			requester.GetProductFilesReturns(productFiles, nil)
 
-			res, err := api.GetLatestProductFile("myprod")
+			res, err := api.GetLatestProductFile("myprod", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
@@ -116,21 +127,21 @@ var _ = Describe("Api", func() {
 
 	Context("GetProductFileForVersion", func() {
 		It("returns an error if there is no product name", func() {
-			res, err := api.GetProductFileForVersion("", "1.0")
+			res, err := api.GetProductFileForVersion("", "1.0", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("returns an error if there is no product version", func() {
-			res, err := api.GetProductFileForVersion("name", "")
+			res, err := api.GetProductFileForVersion("name", "", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("fetches the right product", func() {
-			api.GetProductFileForVersion("myprod", "1.0")
+			api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(requester.GetProductCallCount()).To(Equal(1))
 			Expect(requester.GetProductArgsForCall(0)).To(Equal("myprod"))
@@ -138,14 +149,14 @@ var _ = Describe("Api", func() {
 
 		It("returns an error if fetching a product fails", func() {
 			requester.GetProductReturns(nil, errors.New("err"))
-			res, err := api.GetProductFileForVersion("myprod", "1.0")
+			res, err := api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("fetches the product files from the returned product", func() {
-			api.GetProductFileForVersion("myprod", "1.0")
+			api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(requester.GetProductFilesCallCount()).To(Equal(1))
 			Expect(requester.GetProductFilesArgsForCall(0)).To(Equal(prod.Releases[1]))
@@ -153,16 +164,23 @@ var _ = Describe("Api", func() {
 
 		It("returns an error if GetProductFiles fails", func() {
 			requester.GetProductFilesReturns(nil, errors.New("err"))
-			res, err := api.GetProductFileForVersion("myprod", "1.0")
+			res, err := api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("returns the latest product file", func() {
-			res, err := api.GetProductFileForVersion("myprod", "1.0")
+			res, err := api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(res).To(Equal(&productFiles.Files[1]))
+			Expect(err).ToNot(HaveOccurred())
+		})
+
+        It("returns the latest product file", func() {
+			res, err := api.GetProductFileForVersion("myprod", "1.0", "zip")
+
+			Expect(res).To(Equal(&productFiles.Files[2]))
 			Expect(err).ToNot(HaveOccurred())
 		})
 
@@ -170,7 +188,7 @@ var _ = Describe("Api", func() {
 			productFiles.Files = productFiles.Files[:1]
 			requester.GetProductFilesReturns(productFiles, nil)
 
-			res, err := api.GetProductFileForVersion("myprod", "1.0")
+			res, err := api.GetProductFileForVersion("myprod", "1.0", "pivotal")
 
 			Expect(res).To(BeNil())
 			Expect(err).To(HaveOccurred())
