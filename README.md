@@ -11,6 +11,7 @@ A go library and cli executable to download a product from network.pivotal.io
 gopivnet -help
 Usage of gopivnet:
   -file="": filename where to save the pivotal product
+  -fileType="": type of file.  Defaults to 'pivotal' tile
   -product="": product to download
   -token="": pivnet token
   -version="": version of the product. If missing download the latest version
