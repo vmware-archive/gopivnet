@@ -12,8 +12,8 @@ import (
 )
 
 type Api interface {
-	GetLatestProductFile(productName string) (*resource.ProductFile, error)
-	GetProductFileForVersion(productName, version string) (*resource.ProductFile, error)
+	GetLatestProductFile(productName string, fileType string) (*resource.ProductFile, error)
+	GetProductFileForVersion(productName, version string, fileType string) (*resource.ProductFile, error)
 	Download(productFile *resource.ProductFile, fileName string) error
 }
 
@@ -27,7 +27,7 @@ func New(token string) Api {
 	}
 }
 
-func (p *PivnetApi) GetLatestProductFile(productName string) (*resource.ProductFile, error) {
+func (p *PivnetApi) GetLatestProductFile(productName string, fileType string) (*resource.ProductFile, error) {
 	if productName == "" {
 		return nil, errors.New("Must specify a product name")
 	}
@@ -42,17 +42,17 @@ func (p *PivnetApi) GetLatestProductFile(productName string) (*resource.ProductF
 		return nil, err
 	}
 
-	pivotalProduct := getPivotalProduct(productFiles)
+	pivotalProduct := getPivotalProduct(productFiles, fileType)
 	if pivotalProduct == nil {
-		return nil, errors.New("Unable to fund a pivotal product")
+		return nil, errors.New("Unable to find a pivotal product")
 	}
 
 	return pivotalProduct, nil
 }
 
-func getPivotalProduct(productFiles *resource.ProductFiles) *resource.ProductFile {
+func getPivotalProduct(productFiles *resource.ProductFiles, fileType string) *resource.ProductFile {
 	for index, productFile := range productFiles.Files {
-		if strings.Contains(productFile.AwsObjectKey, ".pivotal") {
+		if strings.Contains(productFile.AwsObjectKey, "." + fileType) {
 			return &productFiles.Files[index]
 		}
 	}
@@ -60,7 +60,7 @@ func getPivotalProduct(productFiles *resource.ProductFiles) *resource.ProductFil
 	return nil
 }
 
-func (p *PivnetApi) GetProductFileForVersion(productName, version string) (*resource.ProductFile, error) {
+func (p *PivnetApi) GetProductFileForVersion(productName, version string, fileType string) (*resource.ProductFile, error) {
 	if productName == "" {
 		return nil, errors.New("Must specify a product name")
 	}
@@ -84,9 +84,9 @@ func (p *PivnetApi) GetProductFileForVersion(productName, version string) (*reso
 		return nil, err
 	}
 
-	pivotalProduct := getPivotalProduct(productFiles)
+	pivotalProduct := getPivotalProduct(productFiles, fileType)
 	if pivotalProduct == nil {
-		return nil, errors.New("Unable to fund a pivotal product")
+		return nil, errors.New("Unable to find a pivotal product")
 	}
 
 	return pivotalProduct, nil
