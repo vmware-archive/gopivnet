@@ -26,7 +26,7 @@ var _ = Describe("Releases", func() {
 		ghttp.VerifyHeaderKV("Authorization", "Token token"),
 		ghttp.VerifyHeaderKV("Content-Type", "application/json"),
 		ghttp.VerifyHeaderKV("Accept", "application/json"),
-		ghttp.VerifyHeaderKV("User-Agent", fmt.Sprintf("gopivnet %s", resource.Version)),
+		ghttp.VerifyHeaderKV("User-Agent", fmt.Sprintf("gopivnet/%s", resource.Version)),
 	)
 
 	BeforeEach(func() {

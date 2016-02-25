@@ -24,5 +24,5 @@ func (p *pivnetClient) setPivnetHeaders(req *http.Request) {
 	req.Header.Set("Authorization", "Token "+p.token)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", fmt.Sprintf("gopivnet %s", Version))
+	req.Header.Set("User-Agent", fmt.Sprintf(`gopivnet/%s`, Version))
 }
