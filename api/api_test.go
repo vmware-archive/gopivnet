@@ -45,10 +45,10 @@ var _ = Describe("Api", func() {
 					Id:           22,
 					AwsObjectKey: "product.pivotal",
 				},
-                resource.ProductFile{
-                    Id:           23,
-                    AwsObjectKey: "cool.zip",
-                },
+				resource.ProductFile{
+					Id:           23,
+					AwsObjectKey: "cool.zip",
+				},
 			},
 		}
 
@@ -107,7 +107,7 @@ var _ = Describe("Api", func() {
 			Expect(err).ToNot(HaveOccurred())
 		})
 
-        It("returns the latest product file with an extension", func() {
+		It("returns the latest product file with an extension", func() {
 			res, err := api.GetLatestProductFile("myprod", "zip")
 
 			Expect(res).To(Equal(&productFiles.Files[2]))
@@ -177,7 +177,7 @@ var _ = Describe("Api", func() {
 			Expect(err).ToNot(HaveOccurred())
 		})
 
-        It("returns the latest product file", func() {
+		It("returns the latest product file", func() {
 			res, err := api.GetProductFileForVersion("myprod", "1.0", "zip")
 
 			Expect(res).To(Equal(&productFiles.Files[2]))
@@ -241,6 +241,29 @@ var _ = Describe("Api", func() {
 			Expect(err).ToNot(HaveOccurred())
 			res, err := ioutil.ReadFile(file.Name())
 			Expect(res).To(Equal([]byte("aaa")))
+		})
+	})
+
+	Context("GetVersionsForProduct", func() {
+		It("Returns an error if the product is empty", func() {
+			versions, err := api.GetVersionsForProduct("")
+			Expect(err).To(HaveOccurred())
+			Expect(versions).To(BeEmpty())
+		})
+
+		It("returns an error if it can't get the product from the server", func() {
+			requester.GetProductReturns(nil, errors.New("err"))
+
+			versions, err := api.GetVersionsForProduct("NonexistentProduct")
+			Expect(err).To(HaveOccurred())
+			Expect(versions).To(BeEmpty())
+		})
+
+		It("returns the list of versions for that product", func() {
+			versions, err := api.GetVersionsForProduct("ExistingProduct")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(versions).To(ContainElement("1.0"))
+			Expect(versions).To(ContainElement("2.0"))
 		})
 	})
 })

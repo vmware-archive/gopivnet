@@ -14,6 +14,7 @@ import (
 type Api interface {
 	GetLatestProductFile(productName string, fileType string) (*resource.ProductFile, error)
 	GetProductFileForVersion(productName, version string, fileType string) (*resource.ProductFile, error)
+	GetVersionsForProduct(productName string) ([]string, error)
 	Download(productFile *resource.ProductFile, fileName string) error
 }
 
@@ -52,7 +53,7 @@ func (p *PivnetApi) GetLatestProductFile(productName string, fileType string) (*
 
 func getPivotalProduct(productFiles *resource.ProductFiles, fileType string) *resource.ProductFile {
 	for index, productFile := range productFiles.Files {
-		if strings.Contains(productFile.AwsObjectKey, "." + fileType) {
+		if strings.Contains(productFile.AwsObjectKey, "."+fileType) {
 			return &productFiles.Files[index]
 		}
 	}
@@ -100,6 +101,25 @@ func getReleaseForVersion(product *resource.Product, version string) *resource.R
 	}
 
 	return nil
+}
+
+func (p *PivnetApi) GetVersionsForProduct(productName string) ([]string, error) {
+
+	if len(productName) == 0 {
+		return []string{}, errors.New("Product name was empty")
+	}
+
+	product, err := p.Requester.GetProduct(productName)
+
+	if err != nil {
+		return []string{}, err
+	}
+
+	var versions []string
+	for _, release := range product.Releases {
+		versions = append(versions, release.Version)
+	}
+	return versions, nil
 }
 
 func (p *PivnetApi) Download(productFile *resource.ProductFile, fileName string) error {

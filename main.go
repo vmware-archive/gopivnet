@@ -29,9 +29,9 @@ func main() {
 		log.Fatal("Need a pivnet token")
 	}
 
-    if *fileType == "" {
-        *fileType = "pivotal"
-    }
+	if *fileType == "" {
+		*fileType = "pivotal"
+	}
 
 	pivnetApi := api.New(*token)
 

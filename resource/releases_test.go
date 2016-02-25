@@ -1,6 +1,7 @@
 package resource_test
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/cfmobile/gopivnet/resource"
@@ -25,6 +26,7 @@ var _ = Describe("Releases", func() {
 		ghttp.VerifyHeaderKV("Authorization", "Token token"),
 		ghttp.VerifyHeaderKV("Content-Type", "application/json"),
 		ghttp.VerifyHeaderKV("Accept", "application/json"),
+		ghttp.VerifyHeaderKV("User-Agent", fmt.Sprintf("gopivnet %s", resource.Version)),
 	)
 
 	BeforeEach(func() {
@@ -235,7 +237,7 @@ var _ = Describe("Releases", func() {
 			Expect(url).To(Equal("testUrl"))
 		})
 
-		FIt("if the eula is not signed, it makes a request to the eula url", func() {
+		It("if the eula is not signed, it makes a request to the eula url", func() {
 			returnHeader := http.Header{}
 			returnHeader.Add("Location", "testUrl")
 

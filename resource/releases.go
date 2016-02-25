@@ -16,50 +16,34 @@ type ReleaseRequester interface {
 	GetProductDownloadUrl(productFile *ProductFile) (string, error)
 }
 
+type HttpClient interface {
+	Do(req *http.Request) (resp *http.Response, err error)
+	DoWithoutRedirect(req *http.Request) (resp *http.Response, err error)
+}
+
 func NewRequester(url string, token string) ReleaseRequester {
 	return &PivnetRequester{
 		pivnetUrl: url,
-		token:     token,
+		client:    &pivnetClient{token: token},
 	}
 }
 
 type PivnetRequester struct {
 	pivnetUrl string
-	token     string
-}
-
-func (p *PivnetRequester) GetLatestReleaseUrl(token, productName string) (string, error) {
-	req := p.getProductRequest(productName)
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return "", err
-	}
-
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return "", errors.New("error")
-	}
-
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	return string(body), nil
+	client    HttpClient
 }
 
 func (p *PivnetRequester) getProductRequest(productName string) *http.Request {
 	requestUrl := fmt.Sprintf("%s/api/v2/products/%s/releases", p.pivnetUrl, productName)
 
 	req, _ := http.NewRequest("GET", requestUrl, nil)
-	req.Header.Set("Authorization", "Token "+p.token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-
 	return req
 }
 
 func (p *PivnetRequester) GetProduct(productName string) (*Product, error) {
 	req := p.getProductRequest(productName)
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := p.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +68,8 @@ func (p *PivnetRequester) GetProductFiles(release Release) (*ProductFiles, error
 		return nil, errors.New("Unable to get product files")
 	}
 
-	req := p.productFilesRequest(productFilesLink.Url)
-	resp, err := http.DefaultClient.Do(req)
+	req, _ := http.NewRequest("GET", productFilesLink.Url, nil)
+	resp, err := p.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -105,23 +89,14 @@ func (p *PivnetRequester) GetProductFiles(release Release) (*ProductFiles, error
 	return &productFiles, nil
 }
 
-func (p *PivnetRequester) productFilesRequest(url string) *http.Request {
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("Authorization", "Token "+p.token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-
-	return req
-}
-
 func (p *PivnetRequester) GetProductDownloadUrl(productFile *ProductFile) (string, error) {
 	downloadLink, ok := productFile.Links["download"]
 	if !ok {
 		return "", errors.New("Unable to get product files")
 	}
 
-	req := p.downloadRequest(downloadLink.Url)
-	resp, err := http.DefaultTransport.RoundTrip(req)
+	req, _ := http.NewRequest("POST", downloadLink.Url, nil)
+	resp, err := p.client.DoWithoutRedirect(req)
 	if err != nil {
 		return "", err
 	}
@@ -135,7 +110,7 @@ func (p *PivnetRequester) GetProductDownloadUrl(productFile *ProductFile) (strin
 		if err != nil {
 			return "", err
 		}
-		resp, err = http.DefaultTransport.RoundTrip(req)
+		resp, err = p.client.DoWithoutRedirect(req)
 		if err != nil {
 			return "", err
 		}
@@ -149,22 +124,10 @@ func (p *PivnetRequester) GetProductDownloadUrl(productFile *ProductFile) (strin
 	return downloadUrl, nil
 }
 
-func (p *PivnetRequester) downloadRequest(url string) *http.Request {
-	req, _ := http.NewRequest("POST", url, nil)
-	req.Header.Set("Authorization", "Token "+p.token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-
-	return req
-}
-
 func (p *PivnetRequester) acceptEula(url string) error {
 	req, _ := http.NewRequest("POST", url, nil)
-	req.Header.Set("Authorization", "Token "+p.token)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := p.client.Do(req)
 	if err != nil {
 		return err
 	}
