@@ -150,6 +150,6 @@ func download(url, fileName string) error {
 		return err
 	}
 
-	fmt.Printf(`Wrote %d bytes to %s\n`, n, fileName)
+	fmt.Printf("Wrote %d bytes to \"%s\"\n", n, fileName)
 	return nil
 }
