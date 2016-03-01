@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -49,6 +50,7 @@ func (p *PivnetRequester) GetProduct(productName string) (*Product, error) {
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		logRequestAndResponse(req, resp)
 		return nil, errors.New("bad status code from server")
 	}
 
@@ -75,6 +77,7 @@ func (p *PivnetRequester) GetProductFiles(release Release) (*ProductFiles, error
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		logRequestAndResponse(req, resp)
 		return nil, errors.New("bad status code from server")
 	}
 
@@ -117,6 +120,7 @@ func (p *PivnetRequester) GetProductDownloadUrl(productFile *ProductFile) (strin
 	}
 
 	if resp.StatusCode != http.StatusFound {
+		logRequestAndResponse(req, resp)
 		return "", errors.New("bad status code from server")
 	}
 
@@ -133,7 +137,12 @@ func (p *PivnetRequester) acceptEula(url string) error {
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		logRequestAndResponse(req, resp)
 		return errors.New("Unable to accept eula")
 	}
 	return nil
+}
+
+func logRequestAndResponse(req *http.Request, resp *http.Response) {
+	log.Printf("\nRequest: %v\nResponse: %v\n", req, resp)
 }
