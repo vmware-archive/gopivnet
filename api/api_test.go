@@ -202,7 +202,6 @@ var _ = Describe("Api", func() {
 		BeforeEach(func() {
 			var err error
 			file, err = ioutil.TempFile("", "")
-			file.Close()
 			Expect(err).ToNot(HaveOccurred())
 
 			server = ghttp.NewServer()
@@ -241,6 +240,15 @@ var _ = Describe("Api", func() {
 			Expect(err).ToNot(HaveOccurred())
 			res, err := ioutil.ReadFile(file.Name())
 			Expect(res).To(Equal([]byte("aaa")))
+		})
+
+		It("returns an error if it can't write to the file", func() {
+			requester.GetProductDownloadUrlReturns(server.URL(), nil)
+			err := file.Chmod(0444)
+
+			Expect(err).ToNot(HaveOccurred())
+			err = api.Download(&resource.ProductFile{}, file.Name())
+			Expect(err).To(HaveOccurred())
 		})
 	})
 

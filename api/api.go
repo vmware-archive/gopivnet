@@ -132,23 +132,24 @@ func (p *PivnetApi) Download(productFile *resource.ProductFile, fileName string)
 		return err
 	}
 
-	download(url, fileName)
-
-	return nil
+	return download(url, fileName)
 }
 
-func download(url, fileName string) {
+func download(url, fileName string) error {
 	out, err := os.Create(fileName)
 	defer out.Close()
 
 	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
 	defer resp.Body.Close()
 
 	n, err := io.Copy(out, resp.Body)
 	if err != nil {
-		fmt.Println("Unable to write to file")
-		return
+		return err
 	}
 
-	fmt.Printf("Written %d bytes to file", n)
+	fmt.Printf(`Wrote %d bytes to %s\n`, n, fileName)
+	return nil
 }
