@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
-	"github.com/cfmobile/gopivnet/api"
+	"./api"
 	"github.com/cfmobile/gopivnet/resource"
 )
 
@@ -26,7 +27,12 @@ func main() {
 	}
 
 	if *token == "" {
-		log.Fatal("Need a pivnet token")
+		var env = os.Getenv("PIVNET_TOKEN")
+		if env != "" {
+			token = &env
+		} else {
+			log.Fatal("Need a pivnet token")
+		}
 	}
 
 	if *fileType == "" {
