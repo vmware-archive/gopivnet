@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"./api"
+	"github.com/cfmobile/gopivnet/api"
 	"github.com/cfmobile/gopivnet/resource"
 )
 
